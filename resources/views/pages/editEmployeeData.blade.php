@@ -44,14 +44,17 @@
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
+        $(document).ready(function(){
         function getEmployeeInfo(employee_id) {
             
-            // AJAX request to fetch the address of the selected employee
+            $('#employee_id').val(employee_id);
+            // AJAX request to fetch the all data of the selected employee
         
             $.ajax({
                 url: "{{ route('get-info', ':employee_id') }}".replace(':employee_id', employee_id),
                 type: 'GET',
                 success: function(response) {
+                    console.log(response);
                    
                     $('#address').val(response.address);
                     $('#contact_number').val(response.contact_number);
@@ -67,9 +70,34 @@
                     $('#site_manager_name').val(response.site_manager_name);
                     $('#manager_contact').val(response.manager_contact);
 
+                    $('#image-preview').attr('src', response.image);
+
                    }
             });
         }
+        
+        $('#employee_id').change(function() {
+        var employee_id = $(this).val();
+        if (employee_id !== '') {
+            getEmployeeInfo(employee_id);}
+            });
+
+            // Function to preview image before upload
+            $("#image").change(function(){
+                readURL(this);
+            });
+
+            function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#image-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }}
+        });
     </script>
      <!-- Fonts -->
      <link rel="preconnect" href="https://fonts.bunny.net">
@@ -82,7 +110,8 @@
     @include('layouts.navigation')
     <div class="container mt-3 mb-3">
         <div class="text-center"><h2>Employee Information Form</h2></div>
-        <form action="" method="POST">
+
+        <form action="{{ route('employee.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div>
             <label for="employee_id" class="form-label">Name:</label>
@@ -97,9 +126,21 @@
 
             <div class="secondary-caption text-center"><h2>Personal Information</h2></div>
 
+            
+
             <!-- Personal information fields -->
             <div class="row">
                 <div class="col-md-6">
+                    
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Employee Image:</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                            
+                        </div>
+                        <div class="mb-3">
+                            <!-- Image preview container -->
+                            <img id="image-preview" src="#" alt="Image Preview" style="max-width: 200px; max-height: 200px;">
+                        </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>
                         <input type="text" class="form-control" id="address" name="address" >
@@ -108,6 +149,10 @@
                         <label for="contactNumber" class="form-label">Contact Number:</label>
                         <input type="number" class="form-control" id="contact_number" name="contact_number">
                     </div>
+                </div>
+
+                
+                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="nidNumber" class="form-label">NID Number:</label>
                         <input type="number" class="form-control" id="nid_number" name="nid_number">
@@ -115,21 +160,6 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="email" name="email">
-                    </div>
-
-                </div>
-                <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="maritalStatus" class="form-label">Marital Status:</label>
-                        <input type="text" class="form-control" id="marital_status" name="marital_status" >
-                    </div>
-                    <div class="mb-3">
-                        <label for="spouseName" class="form-label">Name of Spouse:</label>
-                        <input type="text" class="form-control" id="spouse_name" name="spouse_name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="religion" class="form-label">Religion:</label>
-                        <input type="text" class="form-control" id="religion" name="religion" >
                     </div>
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of Birth:</label>

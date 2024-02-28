@@ -47,7 +47,7 @@
                 <td>{{ $employee->employee_id }}</td>
                 <td>{{ $employee->full_name }}</td>
                 <td>
-                    <img src="{{ $employee->image }}" alt="Image" width="50" height="50">
+                    <img src="{{ asset('assets/images/' . $employee->image) }}" alt="Image" width="50" height="50">
                 </td>
                 <td>{{ $employee->address }}</td>
                 <td>{{ $employee->contact_number }}</td>

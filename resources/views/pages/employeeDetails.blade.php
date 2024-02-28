@@ -22,19 +22,11 @@
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
         .secondary-caption {
-            color:  #027e0c;
+            color:  #4bb7b3;
             font-weight: bold;
             margin-top: 20px;
             margin-bottom: 10px;
             
-        }
-        .btn-primary {
-            background-color:#027e0c; 
-            border-color: #027e0c;
-        }
-        .btn-primary:hover {
-            background-color: #06600d; /* Darker color on hover */
-            border-color: #06600d;
         }
         @media (max-width: 768px) {
         .container {
@@ -42,11 +34,41 @@
         }
 
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        
+        $(document).ready(function(){
+            
+            // Function to preview image before upload
+            $("#image").change(function(){
+                readURL(this);
+            });
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#image-preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+    </script>
+     <!-- Fonts -->
+     <link rel="preconnect" href="https://fonts.bunny.net">
+     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+     <!-- Scripts -->
+     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
+    @include('layouts.navigation')
     <div class="container mt-3 mb-3">
         <div class="text-center"><h2>Employee Information Form</h2></div>
-        <form action="{{route('employee.store')}}" method="POST">
+        <form action="{{route('employee.store')}}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">
@@ -61,10 +83,21 @@
                 <input type="text" class="form-control" id="fullName" name="full_name">
             </div>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">Employee Image:</label>
-                <input type="file" class="form-control" id="image" name="image">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Employee Image:</label>
+                        <input type="file" class="form-control" id="image" name="image">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3" style="text-align: center;">
+                                <!-- Image preview container -->
+                        <img id="image-preview" src="#" alt="your image here"  style=" max-width: 200px; max-height: 200px;">
+                    </div>
+                </div>
             </div>
+        
 
             <!-- Personal information fields -->
             <div class="row">
@@ -85,12 +118,13 @@
                         <label for="email" class="form-label">Email:</label>
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
+                    
+                </div>
+                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="dob" class="form-label">Date of Birth:</label>
                         <input type="date" class="form-control" id="dob" name="date_of_birth">
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="mb-3">
                         <label for="maritalStatus" class="form-label">Marital Status:</label>
                         <input type="text" class="form-control" id="maritalStatus" name="marital_status">

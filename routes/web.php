@@ -46,7 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/get-info/{employee_id}', [EmployeeController::class, 'getEmployeeInfo'])->name('get-info');
     Route::post('/employeeDetails', [EmployeeController:: class, 'store'])->name('employee.store');  
     Route:: post('/salaryInput', [EmployeeController:: class, 'salary_store'])->name('salary.store');
-    Route:: get('editEmployeeData' , [EmployeeController:: class,'edit'])->name('pages.editEmployeeData')->middleware('admin');
+    
+    Route:: get('/editEmployeeData' , [EmployeeController:: class,'edit'])->name('pages.editEmployeeData')->middleware('admin');
+    Route:: post('/update-employee' , [EmployeeController:: class,'updateEmployee'])->name('employee.update')->middleware('admin');
+    
     Route:: get('/attendanceManagement' , [AttendanceRecordController:: class,'showAttendanceForm'])->name('pages.attendanceManagement');
     Route::post('/save-attendance', [AttendanceRecordController::class, 'store'])->name('attendance.store');
 

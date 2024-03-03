@@ -21,6 +21,29 @@
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
+        .success-btn{
+           
+            border-radius: 6px;
+            box-sizing: border-box;
+            color: #58c243e6;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 6px 16px;
+            position: relative;
+            vertical-align: middle;
+
+        }
+        .danger-btn{
+            
+            border-radius: 6px;
+            box-sizing: border-box;
+            color: #c31720e6;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 6px 10px;
+            position: relative;
+            vertical-align: middle;
+        }
     </style>
      <!-- Fonts -->
      <link rel="preconnect" href="https://fonts.bunny.net">
@@ -38,36 +61,37 @@
         <div class="responsive-table">
             <table class="table table-bordered border-primary">
                 <thead class="table-primary">
-                <tr>
-                    <th>Date</th>
-                    <th>Name</th>
-                    <th>Entry Time</th>
-                    <th>Exit Time</th>
-                    <th>Remarks</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($userData as $record)
                     <tr>
-                    <td>{{ $record->date }}</td>
-                    <td>{{ $record->user->name }}</td>
-                    <td>{{ $record->entryTime }}</td>
-                    <td>{{ $record->exitTime }}</td>
-                    <td>{{ $record->remarks }}</td>
-                    
-                    <td><form action="{{ route('attendance.approve', $record->id) }}" method="post" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="primary-button">Approve</button>
-                    </form>
-                    <form action="{{ route('attendance.reject', $record->id) }}" method="post" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="danger-button">Reject</button>
-                    </form></td>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Entry Time</th>
+                        <th>Exit Time</th>
+                        <th>Remarks</th>
+                        <th>Status</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @foreach($userData as $record)
+                        <tr>
+                            <td>{{ $record->date }}</td>
+                            <td>{{ $record->user->name }}</td>
+                            <td>{{ $record->entryTime }}</td>
+                            <td>{{ $record->exitTime }}</td>
+                            <td>{{ $record->remarks }}</td>
+                    
+                            <td><form action="{{ route('attendance.approve', $record->id) }}" method="post" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-sm success-btn">Approve</button>
+                                </form>
+                                <form action="{{ route('attendance.reject', $record->id) }}" method="post" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-sm danger-btn">Decline</button>
+                                 </form>
+                            </td>
+                        </tr>
                     @endforeach
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

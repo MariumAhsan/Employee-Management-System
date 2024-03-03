@@ -7,7 +7,10 @@ use App\Models\Employee;
 use App\Models\Salary;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use \Mpdf\Mpdf as PDF;
+
 use File;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -31,6 +34,31 @@ class EmployeeController extends Controller
     public function input()
     {
         return view('pages.employeeDetails');
+        
+    }
+    public function invoice($employee_id)
+    {
+ 
+        // Create the mPDF document
+        $pdf = new PDF( [
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'margin_header' => '3',
+            'margin_top' => '20',
+            'margin_bottom' => '20',
+            'margin_footer' => '2',
+        ]);     
+
+        //$employeeData= Employee::find($employee_id);
+        $employeeData= Employee::with('salaries')->find($employee_id);
+        //dd($employeeData);
+
+        $date= Carbon::today()->toDateString();
+        //dd($date);
+
+        $pdf->WriteHTML(view('pages.invoice', compact('employeeData', 'date')));
+        
+        return $pdf->Output('invoice.pdf', 'I');
         
     }
     /**

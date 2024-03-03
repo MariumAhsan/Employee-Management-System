@@ -28,14 +28,19 @@
             margin-bottom: 10px;
             
         }
-        .btn-primary {
-            background-color:#027e0c; 
-            border-color: #027e0c;
-        }
-        .btn-primary:hover {
-            background-color: #06600d; /* Darker color on hover */
-            border-color: #06600d;
-        }
+        .btn {
+                background-color: #f5f7f9;
+                border: 1px solid #778b93d2;
+                border-radius: 6px;
+                box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(30, 23, 23, 0.25) 0 1px 0 inset;
+                box-sizing: border-box;
+                color: #383c41;
+                font-size: 15px;
+                font-weight: 600;
+                padding: 6px 16px;
+                position: relative;
+                vertical-align: middle;
+            }
         @media (max-width: 768px) {
         .container {
         padding: 20px;}

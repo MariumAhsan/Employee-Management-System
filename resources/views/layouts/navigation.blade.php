@@ -59,7 +59,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile Me') }}
+                            {{ __('Profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -90,13 +90,36 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+        @if(auth()->user()->user_type==1)
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('pages.employeeIndex')" :active="request()->routeIs('pages.employeeIndex')">
+                {{ __('Salary Overview') }}
             </x-responsive-nav-link>
-           
+            <x-responsive-nav-link :href="route('pages.salaryInput')" :active="request()->routeIs('pages.salaryInput')">
+                {{ __('Salary Input') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pages.editEmployeeData')" :active="request()->routeIs('pages.editEmployeeData')">
+                {{ __('Edit Employee Data') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pages.showEmployeeDetails')" :active="request()->routeIs('pages.showEmployeeDetails')">
+                {{ __('Employee Details') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pages.pendingApprovals')" :active="request()->routeIs('pages.pendingApprovals')">
+                {{ __('Pending Approvals') }}
+            </x-responsive-nav-link>      
         </div>
-
+        @endif
+        @if(auth()->user()->user_type==0)
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('pages.employeeDetails')" :active="request()->routeIs('pages.employeeDetails')">
+                {{ __('Add Employee Details') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('pages.attendanceManagement')" :active="request()->routeIs('pages.attendanceManagement')">
+                {{ __('Attendence') }}
+            </x-responsive-nav-link>  
+        </div>
+        @endif
+        
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">

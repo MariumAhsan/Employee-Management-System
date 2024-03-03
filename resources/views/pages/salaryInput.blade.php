@@ -22,21 +22,22 @@
             border-radius: 10px; /* Rounded corners */
             box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
         }
-        .secondary-caption {
-            color:  #027e0c;
-            font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            
+
+        .btn {
+  
+            background-color: #f5f7f9;
+            border: 1px solid #778b93d2;
+            border-radius: 6px;
+            box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(30, 23, 23, 0.25) 0 1px 0 inset;
+            box-sizing: border-box;
+            color: #383c41;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 6px 16px;
+            position: relative;
+            vertical-align: middle;
         }
-        .btn-primary {
-            background-color:#027e0c; 
-            border-color: #027e0c;
-        }
-        .btn-primary:hover {
-            background-color: #06600d; /* Darker color on hover */
-            border-color: #06600d;
-        }
+
         @media (max-width: 768px) {
         .container {
         padding: 20px;}
@@ -115,8 +116,9 @@
                 <input type="number" class="form-control" id="year" name="year" required>
             </div>
             
-            <button type="submit" class="btn btn-danger">Submit</button>
-         
+            <button type="submit" class="btn">Submit</button>
+    
+            </div>
         </form>
     </div>
 

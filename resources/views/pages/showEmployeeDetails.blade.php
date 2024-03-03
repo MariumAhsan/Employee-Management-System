@@ -39,6 +39,8 @@
                 <th scope="col">Salary</th>
                 <th scope="col">Site Manager's Name</th>
                 <th scope="col">Manager's Contact</th>
+                <th scope="col">Invoice</th>
+
             </tr>
         </thead>
         <tbody>
@@ -62,6 +64,7 @@
                 <td>{{ $employee->salary }}</td>
                 <td>{{ $employee->site_manager_name }}</td>
                 <td>{{ $employee->manager_contact }}</td>
+                <td><a href="{{ route('pages.invoice', $employee->id)}}" class="btn btn-sm btn-secondary">Invoice</a></td>
             </tr>
             @endforeach
         </tbody>

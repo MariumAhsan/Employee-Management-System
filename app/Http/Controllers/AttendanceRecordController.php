@@ -85,8 +85,7 @@ public function reject($id)
         $dates[] = $currentMonth->toDateString();
         $currentMonth->addDay();
     }
-    $attendanceData = AttendanceRecord::all();
-    //dd($dates);exit();
+  
     return view('pages.attendanceManagement', compact('dates'));
     
     }

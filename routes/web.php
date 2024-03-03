@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceRecordController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +25,9 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route:: get('/attendanceManagement' , [AttendanceRecordController:: class,'showAttendanceForm'])->name('pages.attendanceManagement');
-Route::post('/save-attendance', [AttendanceRecordController::class, 'store'])->name('attendance.store');
-Route:: get('/attendanceApproval' , [AttendanceRecordController:: class,'pending_approvals'])->name('pages.pendingApprovals');
-Route::post('/attendance/approve/{id}', [AttendanceRecordController:: class, 'approve'])->name('attendance.approve');
-Route::post('/attendance/reject/{id}', [AttendanceRecordController:: class, 'reject'])->name('attendance.reject');
-
-
-
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('admin');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -52,6 +46,15 @@ Route::middleware('auth')->group(function () {
     
     Route:: get('/attendanceManagement' , [AttendanceRecordController:: class,'showAttendanceForm'])->name('pages.attendanceManagement');
     Route::post('/save-attendance', [AttendanceRecordController::class, 'store'])->name('attendance.store');
+   
+    
+    Route:: get('/attendanceApproval' , [AttendanceRecordController:: class,'pending_approvals'])->name('pages.pendingApprovals');
+    
+    Route::post('/attendance/approve/{id}', [AttendanceRecordController:: class, 'approve'])->name('attendance.approve');
+    Route::post('/attendance/reject/{id}', [AttendanceRecordController:: class, 'reject'])->name('attendance.reject');
+
+Route:: get('/invoice/{emp_id}', [EmployeeController::class, 'invoice'])->name('pages.invoice');
+
 
 });
 
